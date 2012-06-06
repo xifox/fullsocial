@@ -11,6 +11,7 @@
 }
 
 .wp-fullsocial-widget .wp-fullsocial-widget-tabs ul {
+  margin: 0;
   list-style: none;
   height: 50px;
   background-color: #bbb;
@@ -38,6 +39,11 @@
 }
 
 .wp-fullsocial-widget .wp-fullsocial-blocks ul {
+  margin: 0;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-blocks ul li {
+  margin: 0;
 }
 
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li.wp-fullsocial-block {
