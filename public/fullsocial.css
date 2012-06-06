@@ -1,0 +1,49 @@
+.wp-fullsocial-widget {
+  border: 1px solid #ddd;
+  padding: 0;
+}
+
+/**
+ * TABS
+ */
+
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs {
+}
+
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul {
+  list-style: none;
+  height: 50px;
+  background-color: #bbb;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li {
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  float: left;
+  background-color: #ccc;
+  margin: 0px;
+  cursor: pointer;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.current {
+  background-color: white;
+}
+
+/**
+ * BLOCKS
+ */
+
+.wp-fullsocial-widget .wp-fullsocial-blocks {
+}
+
+.wp-fullsocial-widget .wp-fullsocial-blocks ul {
+}
+
+.wp-fullsocial-widget .wp-fullsocial-blocks ul li.wp-fullsocial-block {
+  display: none;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-blocks ul li.wp-fullsocial-block.current {
+  display: block;
+}
