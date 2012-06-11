@@ -1,4 +1,4 @@
-<div class="wp-fullsocial-widget-<?php echo $social['id']; ?>">
+<div class="wp-fullsocial-widget-<?php echo $id; ?>">
   <?php $twws = $data['twitts']; ?>
 
   <?php foreach($twws as $tws) : ?>

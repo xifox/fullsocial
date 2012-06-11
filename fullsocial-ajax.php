@@ -1,16 +1,27 @@
 <?php
-header('Content-Type: application/jsonrequest');
+// header('Content-Type: application/jsonrequest');
 
 include('core/api.php');
 
-$params = array (
+$gets = array (
     'type' => $_GET["type"]
   , 'params' => $_GET["params"]
+  , 'identifiers' => $_GET["identifiers"]
 );
 
-echo _fs_getTwitts(
-echo '<pre>';
-print_r($params);
-echo '</pre>';
+switch ($gets['type']) {
+  case "twitter":
+    $ids = $gets['identifiers'];
+    $id = "twitter";
+    $data = array (
+      'twitts' => _fs_getTwitts($ids, array(
+          'count' => 10
+      ))
+    );
+
+    include('templates/fullsocial-twitter.php');
+  break;
+}
+
 
 //echo getData($params);
