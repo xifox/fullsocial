@@ -27,9 +27,13 @@
           case 'twitter':
             params.identifiers = tab.data('ids');
 
-            getData(url, params, function () {
-              console.log("-> arguments -> ", arguments);
-            })
+            tab.click(function(ev) {
+              getData(url, params, function (data, textStatus, jqXHR) {
+                reprintBlock(0, tab, data);
+              });
+            });
+
+            tab.click();
 
           break;
         }
@@ -49,6 +53,16 @@
       }
 
 
+      /**
+       * social apis
+       */
+
+      var apis = {};
+
+      apis.twitter = function () {
+      }
+
+
     /**
      * show block
      */
@@ -65,6 +79,20 @@
       blocks.eq(n).addClass('current');
 
     }
+
+    /**
+     * re-print block
+     */
+
+    function reprintBlock (n, reference, html) {
+      var widget = reference.closest(cssname)
+        , tabs = widget.find('.wp-fullsocial-widget-tabs ul li')
+        , blocks = widget.find('.wp-fullsocial-block');
+
+      var block = blocks.eq(n).addClass('current');
+      block.html(html);
+    }
+
 
     // delegation in widget tabs
     widgets.delegate('.wp-fullsocial-widget-tabs ul li', 'mouseenter', function (ev) {

@@ -33,6 +33,7 @@
       <?php foreach($this->schema() as $k => $social) : ?>
         <li class="wp-fullsocial-block <?php echo $c == 0 ? ' current' : '' ?>">
           <?php $data = $this->getDataSocial($social, $instance) ?>
+          <?php $id = $social['id']; ?>
           <?php include($social['front-tmp']); ?>
         </li>
       <?php $c++; ?>
