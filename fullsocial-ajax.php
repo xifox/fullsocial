@@ -15,7 +15,7 @@ switch ($gets['type']) {
     $id = "twitter";
     $data = array (
       'twitts' => _fs_getTwitts($ids, array(
-          'count' => 10
+          'count' => $gets['count']
       ))
     );
 
