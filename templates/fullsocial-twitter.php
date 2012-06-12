@@ -1,13 +1,17 @@
 <div class="wp-fullsocial-widget-<?php echo $id; ?>">
   <?php $twws = $data['twitts']; ?>
-
+ <pre>
+<?php //print_r($twws);?>
+</pre>
+<ul>
   <?php foreach($twws as $tws) : ?>
     <?php $results = $tws['results']; ?>
     <?php foreach($results as $tw) : ?>
-      <p>
+      <li>
         <img src="<?php echo $tw['profile_image_url']; ?>" />
         <?php echo html_entity_decode($tw['text']); ?>
-      </p>
+      </li>
     <?php endforeach; ?>
   <?php endforeach; ?>
+</ul>
 </div>

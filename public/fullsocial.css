@@ -40,6 +40,7 @@
 
 .wp-fullsocial-widget .wp-fullsocial-blocks ul {
   margin: 0;
+  list-style:none;
 }
 
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li {
