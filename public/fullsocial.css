@@ -31,6 +31,10 @@
   background-color: white;
 }
 
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.widget-loading {
+  color: #eee;
+}
+
 /**
  * BLOCKS
  */
@@ -44,6 +48,11 @@
 
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li {
   margin: 0;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-blocks ul li.widget-loading {
+  color: #aaa;
+  background-color: #eee;
 }
 
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li.wp-fullsocial-block {

@@ -26,14 +26,15 @@
         switch(params.type) {
           case 'twitter':
             params.identifiers = tab.data('ids');
+            params.count = tab.data('count');
 
             tab.click(function(ev) {
-              getData(url, params, function (data, textStatus, jqXHR) {
+              getData(url, params, widget, 0, function (data, textStatus, jqXHR) {
                 reprintBlock(0, tab, data);
               });
             });
 
-            tab.click();
+            //tab.click();
 
           break;
         }
@@ -44,11 +45,24 @@
      * get data async
      */
 
-      function getData (url, params, fn) {
+      function getData (url, params, widget, n, fn) {
+        var tab = widget.find('.wp-fullsocial-widget-tabs ul li:nth-child('
+                    + (n + 1) + ')');
+
+        var block = widget.find('.wp-fullsocial-blocks ul li:nth-child('
+                          + (n + 1) + ')');
         $.ajax({
             url: url 
           , data: params
-          , success: fn
+          , beforeSend: function () {
+              tab.addClass('widget-loading');
+              block.addClass('widget-loading');
+            }
+          , success: function (data) {
+              tab.removeClass('widget-loading');
+              block.removeClass('widget-loading');
+              fn(data);
+            }
         });
       }
 

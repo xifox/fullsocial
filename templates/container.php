@@ -7,14 +7,15 @@
     <?php foreach($this->schema() as $k => $social) : ?>
     <?php $data = $this->getDataSocial($social, $instance) ?>
       <?php if ($data['enabled']) : ?>
-      <li
-        class="<?php echo $data['name'].($c == 0 ? ' current"' : ''); ?>" 
-        data-n="<?php echo $c; ?>"
-        data-type="<?php echo $social['id']; ?>"
+      <li 
+        class="<?php echo $data['name'].($c == 0 ? ' current' : ''); ?>" 
+        data-n="<?php echo $c; ?>" 
+        data-type="<?php echo $social['id']; ?>" 
         <?php
           switch ($social['id']) {
             case "twitter":
-              echo 'data-ids="'.$instance['twitter_identifiers'].'" ';
+              echo ' data-ids="'.$instance['twitter_identifiers'].'" ';
+              echo ' data-count="'.$instance['twitter_count'].'" ';
             break;
           }
         ?>
