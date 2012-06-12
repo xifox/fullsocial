@@ -31,6 +31,8 @@
       class="widefat" type="text" 
       id="<?php echo $this->get_field_id($name); ?>" 
       name="<?php echo $this->get_field_name($name); ?>" 
-    ><?php echo $instance[$name]; ?></textarea>
+      value="<?php echo $instance[$name]; ?>" 
+    />
   </p>
 </div>
+<hr />
