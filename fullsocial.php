@@ -48,7 +48,7 @@ class WP_fullSocial_Widget extends WP_Widget {
 
     // create tmp folder
     $upload_dir = wp_upload_dir();
-    $tmp_folder = $upload_dir['basedir'].'/wp-fullsocial-plugin';
+    $tmp_folder = $upload_dir['basedir'].'/_wp-fullsocial-plugin';
 
     $wp_plugin_folder = get_bloginfo('url').'/wp-content/plugins/fullsocial';
 
@@ -85,10 +85,6 @@ class WP_fullSocial_Widget extends WP_Widget {
 
     $socials = $this->schema();
     $social = $socials[$type];
-
-    // create tmp folder
-    $upload_dir = wp_upload_dir();
-    $tmp_folder = $upload_dir['basedir'].'/wp-fullsocial-plugin';
 
     // print widget block
     $data = $this->getDataSocial($social, $instance, $number);

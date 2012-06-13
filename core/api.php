@@ -5,7 +5,7 @@
 
 // create tmp folder
 $upload_dir = wp_upload_dir();
-$tmp_folder = $upload_dir['basedir'].'/wp-fullsocial-plugin/';
+$tmp_folder = $upload_dir['basedir'].'/_wp-fullsocial-plugin/';
 
 define('_fs_upload_folder', $tmp_folder);
 /**
