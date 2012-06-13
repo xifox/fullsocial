@@ -7,6 +7,10 @@
  * TABS
  */
 
+.clear{
+  width:100%;
+  clear:both;
+}
 .wp-fullsocial-widget .wp-fullsocial-widget-tabs {
 }
 
@@ -25,6 +29,7 @@
   background-color: #ccc;
   margin: 0px;
   cursor: pointer;
+  text-indent:-9999px;
 }
 
 .wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.current {
@@ -35,30 +40,76 @@
   color: #eee;
 }
 
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Twitter {
+  background: url('images/logos.png') no-repeat -50px -50px;
+}
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Twitter.current{
+  background: #fff url('images/logos.png') no-repeat -50px 0px;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Facebook {
+  background: url('images/logos.png') no-repeat -0px -50px;
+}
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Facebook.current{
+  background: #fff url('images/logos.png') no-repeat -0px 0px;
+}
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Googleplus {
+  background: url('images/logos.png') no-repeat -150px -50px;
+}
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Googleplus.current{
+  background: #fff  url('images/logos.png') no-repeat -150px 0px;
+}
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Instagram {
+  background: url('images/logos.png') no-repeat -100px -50px;
+}
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Instagram.current{
+  background: #fff url('images/logos.png') no-repeat -100px 0px;
+}
+
 /**
  * BLOCKS
  */
 
 .wp-fullsocial-widget .wp-fullsocial-blocks {
+  padding: 10px
 }
-
 .wp-fullsocial-widget .wp-fullsocial-blocks ul {
   margin: 0;
+  list-style:none;
 }
-
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li {
-  margin: 0;
+  margin: 5px 0;
+  font-size: 10px;
+  clear:both;
 }
-
+.wp-fullsocial-widget .wp-fullsocial-blocks ul li img {
+  float: left;
+  margin: 0 5px 5px 0;
+  display: block;
+  width:48px; height:48px;
+}
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li.widget-loading {
   color: #aaa;
   background-color: #eee;
 }
-
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li.wp-fullsocial-block {
   display: none;
 }
-
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li.wp-fullsocial-block.current {
   display: block;
 }
+/*** Instagrams ***/
+
+.wp-fullsocial-widget .wp-fullsocial-blocks .instagrams ul li {
+  margin: 0 5px 5px 0;
+  font-size: 10px;
+  clear:none;
+  float:left;
+}
+.wp-fullsocial-widget .wp-fullsocial-blocks .instagrams ul li img {
+  float: left;
+  margin: 0px;
+  display: block;
+  width:69px; height:69px;
+}
+

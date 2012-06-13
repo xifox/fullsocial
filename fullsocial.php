@@ -119,15 +119,15 @@ class WP_fullSocial_Widget extends WP_Widget {
                 , 'count'           => array (
                       'name'          =>  'count'
                     , 'type'          =>  'input'
-                    , 'desc'          =>  'Count of twitts'
+                    , 'desc'          =>  'Amount of twitts'
                     , 'value'         =>  '10'
                   )
 
                 , 'identifiers'     => array (
                       'name'          =>  'identifiers'
                     , 'type'          =>  'textarea'
-                    , 'desc'          =>  'Twitter identidiers. Add an identifier for each line, can be an twiter account (@account) or hashtag (#hashtag)'
-                    , 'value'         =>  '@lauramelos\n#wordpress'
+                    , 'desc'          =>  'Add the terms to show, can be an account (@account) or hashtag (#hashtag) separate by coma.'
+                    , 'value'         =>  '@summitbechtel, #jamboree'
                   )
                 )
             , 'front-tmp'             => 'fullsocial-twitter.php'
@@ -140,11 +140,25 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'id'                    => 'instagram'
         , 'description'           => 'Instagram social network'
         , 'fields'                  => array (
-                  'user'              => array (
-                      'name'            =>  'username'
-                    , 'type'            =>  'text'
-                    , 'desc'            =>  'Instagram username'
-                    , 'value'           =>  'lauramelos'
+                'identifiers'            => array (
+                      'name'            =>  'identifiers'
+                    , 'type'            =>  'textarea'
+                    , 'desc'            =>  'Add the terms to show, can be an account (@account) or hashtag (#hashtag) separate by coma.'
+                    , 'value'           =>  '@summit, #summit'
+                  )
+
+                , 'client_id'         => array (
+                      'name'          =>  'client_id'
+                    , 'type'          =>  'text'
+                    , 'desc'          =>  'Instagram Client Id. Visit http://instagram.com/developer/register/ to get yours'
+                    , 'value'         =>  ''
+                  )
+               
+                  , 'count'           => array (
+                      'name'          =>  'count'
+                    , 'type'          =>  'input'
+                    , 'desc'          =>  'Amount of Instagrams'
+                    , 'value'         =>  '10'
                   )
 
                 , 'enabled'         => array (
@@ -156,6 +170,40 @@ class WP_fullSocial_Widget extends WP_Widget {
             )
         , 'front-tmp'             => 'fullsocial-instagram.php'
         , 'back-tmp'              => 'fullsocial-instagram.php'
+      )
+      // Facebook
+      , 'facebook'           => array(
+          'name'                  => 'Facebook'
+        , 'id'                    => 'Facebook'
+        , 'description'           => 'Facebook social network'
+        , 'fields'                  => array (
+                 'app_id'         => array (
+                      'name'          =>  'app_id'
+                    , 'type'          =>  'text'
+                    , 'desc'          =>  'Facebook app Id. Visit https://developers.facebook.com/apps to get yours'
+                    , 'value'         =>  ''
+                  )
+                  , 'width'           => array (
+                      'name'          =>  'width'
+                    , 'type'          =>  'input'
+                    , 'desc'          =>  ''
+                    , 'value'         =>  '10'
+                  )
+                  , 'height'           => array (
+                      'name'          =>  'height'
+                    , 'type'          =>  'input'
+                    , 'desc'          =>  ''
+                    , 'value'         =>  '10'
+                  )
+                , 'enabled'         => array (
+                      'name'          =>  'enabled'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Enable Facebook tab'
+                    , 'value'         =>  'on'
+                  )
+            )
+        , 'front-tmp'             => 'fullsocial-facebook.php'
+        , 'back-tmp'              => 'fullsocial-facebook.php'
       )
 
         // google+
@@ -223,7 +271,21 @@ class WP_fullSocial_Widget extends WP_Widget {
             'count' => $instance[$social['id'].'_count']
           , 'number' => $number
         ));
-      break;
+        break;
+      case "instagram":
+        $data['instams'] = _fs_getInstagrams ($instance['instagram_identifiers'], array(
+          'count' => $instance[$social['id'].'_count']
+          , 'client_id' => $instance[$social['id'].'_client_id']
+
+        ));
+        break;
+       case "facebook":
+        $data['facebook'] = _fs_getFacebook ($instance['facebook_identifiers'], array(
+            'width' => $instance[$social['id'].'_width']
+          , 'app_id' => $instance[$social['id'].'_app_id']
+          , 'height' => $instance[$social['id'].'_height']
+
+        ));
     }
 
 
