@@ -34,7 +34,6 @@ load_plugin_textdomain('wp_github_plugin', false, basename( dirname( __FILE__ ) 
 // include('core/constants.php');
 include('core/api.php');
 
-
 /**
  * wordpress widget social class
  */
@@ -69,7 +68,32 @@ class WP_fullSocial_Widget extends WP_Widget {
       , 'description'   => 'wordpress full social connect plugin'
     );
 
+    add_action('wp_ajax_render_social', array($this, 'render'));
     parent::__construct('wp-fullsocial-plugin', 'fullSocial', $opciones);
+  }
+
+  /**
+   * redenring function used to async requests
+   */
+
+  function render () {
+    $type = $_GET['type'];
+    $number = $_GET['number'];
+
+    $instances = $this->get_settings();
+    $instance = $instances[$number];
+
+    $socials = $this->schema();
+    $social = $socials[$type];
+
+    // create tmp folder
+    $upload_dir = wp_upload_dir();
+    $tmp_folder = $upload_dir['basedir'].'/wp-fullsocial-plugin';
+
+    // print widget block
+    $data = $this->getDataSocial($social, $instance, $number);
+    $id = $social['id'];
+    include('templates/'.$social['front-tmp']);
   }
 
   /**
@@ -134,6 +158,38 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'back-tmp'              => 'fullsocial-instagram.php'
       )
 
+        // google+
+      , 'googleplus'          => array(
+          'name'                  => 'Google+'
+        , 'id'                    => 'google+'
+        , 'description'           => 'Google plus social network'
+        , 'fields'                  => array (
+                  'key'              => array (
+                      'name'            =>  'key'
+                    , 'type'            =>  'text'
+                    , 'desc'            =>  'google API key'
+                    , 'value'           =>  ''
+                  )
+
+                , 'userid'              => array (
+                      'name'            =>  'userid'
+                    , 'type'            =>  'text'
+                    , 'desc'            =>  'google User ID'
+                    , 'value'           =>  ''
+                  )
+
+                , 'enabled'         => array (
+                      'name'          =>  'enabled'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Enable google plus tab'
+                    , 'value'         =>  'on'
+                  )
+            )
+        , 'front-tmp'             => 'fullsocial-googleplus.php'
+        , 'back-tmp'              => 'fullsocial-googleplus.php'
+      )
+
+
     );
   }
 
@@ -154,7 +210,7 @@ class WP_fullSocial_Widget extends WP_Widget {
    * return data for each social
    */
 
-  function getDataSocial ($social, $instance) {
+  function getDataSocial ($social, $instance, $number) {
     // default data
     $data = array(
         'name'              => $social['name']
@@ -164,10 +220,12 @@ class WP_fullSocial_Widget extends WP_Widget {
     switch ($social['id']) {
       case "twitter":
         $data['twitts'] = _fs_getTwitts($instance['twitter_identifiers'], array(
-          'count' => $instance[$social['id'].'_count']
+            'count' => $instance[$social['id'].'_count']
+          , 'number' => $number
         ));
       break;
     }
+
 
     return $data;
   }
@@ -214,8 +272,12 @@ class WP_fullSocial_Widget extends WP_Widget {
 }
 
 function widget_wp_fullsocial() {
-  register_widget('WP_fullSocial_Widget');
+  $coco = register_widget('WP_fullSocial_Widget');
+  return $coco;
 }
 
+
 add_action('widgets_init', 'widget_wp_fullsocial');
+
+
 ?>

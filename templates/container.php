@@ -1,11 +1,9 @@
-<?php $plugin_path = get_bloginfo('url').'/wp-content/plugins/fullsocial'; ?>
-
-<div class="widget-container wp-fullsocial-widget" data-path="<?php echo $plugin_path; ?>">
+<div class="widget-container wp-fullsocial-widget" data-number="<?php echo $this->number; ?>">
   <div class="wp-fullsocial-widget-tabs">
     <ul>
     <?php $c = 0; ?>
     <?php foreach($this->schema() as $k => $social) : ?>
-    <?php $data = $this->getDataSocial($social, $instance) ?>
+    <?php $data = $this->getDataSocial($social, $instance, $this->number) ?>
       <?php if ($data['enabled']) : ?>
       <li 
         class="<?php echo $data['name'].($c == 0 ? ' current' : ''); ?>" 
@@ -33,7 +31,7 @@
       <?php $c = 0; ?>
       <?php foreach($this->schema() as $k => $social) : ?>
         <li class="wp-fullsocial-block <?php echo $c == 0 ? ' current' : '' ?>">
-          <?php $data = $this->getDataSocial($social, $instance) ?>
+          <?php $data = $this->getDataSocial($social, $instance, $this->number) ?>
           <?php $id = $social['id']; ?>
           <?php include($social['front-tmp']); ?>
         </li>

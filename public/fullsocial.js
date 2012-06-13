@@ -1,5 +1,11 @@
 (function($) {
   $(window).ready(function() {
+    /**
+     * constants
+     */
+
+    var refreshTime = 5000;
+
     var cssname = '.wp-fullsocial-widget';
 
     // widgets
@@ -13,14 +19,12 @@
 
     // init widgets
     function processWidget (widget) {
-      var plugin_path = widget.data('path');
-
       // update data
       $.each(widget.find('.wp-fullsocial-widget-tabs ul li'), function (i, tab) {
         tab = $(tab);
-        var url = plugin_path + "/fullsocial-ajax.php"
-          , params = {
+        var params = {
                 type: tab.data('type')
+              , number: widget.data('number')
             };
 
         switch(params.type) {
@@ -29,12 +33,14 @@
             params.count = tab.data('count');
 
             tab.click(function(ev) {
-              getData(url, params, widget, 0, function (data, textStatus, jqXHR) {
+              if (tab.hasClass('widget-loading')) return;
+              getData(params, widget, 0
+              , function (data, textStatus, jqXHR) {
                 reprintBlock(0, tab, data);
               });
             });
 
-            //tab.click();
+            // setInterval(function() { tab.click(); }, refreshTime);
 
           break;
         }
@@ -45,14 +51,18 @@
      * get data async
      */
 
-      function getData (url, params, widget, n, fn) {
+      function getData (params, widget, n, fn) {
         var tab = widget.find('.wp-fullsocial-widget-tabs ul li:nth-child('
                     + (n + 1) + ')');
 
         var block = widget.find('.wp-fullsocial-blocks ul li:nth-child('
                           + (n + 1) + ')');
+
+        params.action = 'render_social';
+        params.type = 'twitter';
+
         $.ajax({
-            url: url 
+            url: 'wp-admin/admin-ajax.php'
           , data: params
           , beforeSend: function () {
               tab.addClass('widget-loading');
@@ -91,7 +101,6 @@
 
       blocks.removeClass('current');
       blocks.eq(n).addClass('current');
-
     }
 
     /**
@@ -115,10 +124,8 @@
     });
 
     widgets.delegate('.wp-fullsocial-widget-tabs ul li', 'mouseleave', function (ev) {
-      console.log("-> this -> ", this);
+      // console.log("-> this -> ", this);
     });
-
-
 
   });
 })(jQuery);

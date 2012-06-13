@@ -3,8 +3,11 @@
  * constants
  */
 
-define('_fs_upload_folder', getcwd().'/wp-content/uploads/wp-fullsocial-plugin/');
+// create tmp folder
+$upload_dir = wp_upload_dir();
+$tmp_folder = $upload_dir['basedir'].'/wp-fullsocial-plugin/';
 
+define('_fs_upload_folder', $tmp_folder);
 /**
  * retieve data from github
  */
@@ -42,21 +45,19 @@ function _fs_localFileExist ($id) {
 }
 
 function _fs_getTwitts ($ids, $params) {
-  $id = 'twitter';
-  $ids = explode(',', $ids);
+  $_ids = urlencode($ids);
+  $fn = 'twitter_'.$ids.'_'.$params['number'];
 
-  if (_fs_localFileExist($id) and false) {
-    $tws = json_decode(_fs_loadLocalFile($id), true);
+  if (_fs_localFileExist($fn) && false) {
+    $tws = json_decode(_fs_loadLocalFile($ids), true);
   } else {
     $tws = array ();
-    foreach($ids as $id) {
-      $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
-      $url = sprintf($url, urlencode($id), $params['count']);
+    $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
+    $url = sprintf($url, $_ids, $params['count']);
 
-      array_push($tws, json_decode(_fs_getData($url), true));
-    }
+    array_push($tws, json_decode(_fs_getData($url), true));
 
-    _fs_saveLocalFile('twitter', json_encode($tws));
+    _fs_saveLocalFile($fn, json_encode($tws));
   }
 
   return $tws;
