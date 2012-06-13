@@ -11,4 +11,5 @@
     <?php endforeach; ?>
   <?php endforeach; ?>
 </ul>
+<div class="clear"></div>
 </div>
