@@ -68,7 +68,7 @@ class WP_fullSocial_Widget extends WP_Widget {
       , 'description'   => 'wordpress full social connect plugin'
     );
 
-    add_action('wp_ajax_render_social', array($this, 'render'));
+    add_action('wp_ajax_render_social', array($this, 'renderSocialBlock'));
     parent::__construct('wp-fullsocial-plugin', 'fullSocial', $opciones);
   }
 
@@ -76,9 +76,9 @@ class WP_fullSocial_Widget extends WP_Widget {
    * redenring function used to async requests
    */
 
-  function render () {
-    $type = $_GET['type'];
-    $number = $_GET['number'];
+  function renderSocialBlock ($type, $number) {
+    $type = (isset($type) and strlen($type) > 0) ? $type : $_GET['type'];
+    $number = isset($number) ? $number : $_GET['number'];
 
     $instances = $this->get_settings();
     $instance = $instances[$number];

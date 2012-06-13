@@ -31,9 +31,7 @@
       <?php $c = 0; ?>
       <?php foreach($this->schema() as $k => $social) : ?>
         <li class="wp-fullsocial-block <?php echo $c == 0 ? ' current' : '' ?>">
-          <?php $data = $this->getDataSocial($social, $instance, $this->number) ?>
-          <?php $id = $social['id']; ?>
-          <?php include($social['front-tmp']); ?>
+        <?php $this->renderSocialBlock($social['id'], $this->number); ?>
         </li>
       <?php $c++; ?>
       <?php endforeach; ?>
