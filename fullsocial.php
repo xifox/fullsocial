@@ -151,7 +151,7 @@ class WP_fullSocial_Widget extends WP_Widget {
                       'name'          =>  'client_id'
                     , 'type'          =>  'text'
                     , 'desc'          =>  'Instagram Client Id. Visit http://instagram.com/developer/register/ to get yours'
-                    , 'value'         =>  ''
+                    , 'value'         =>  '12f66edc57124e2c966a7582e39472a2'
                   )
                
                   , 'count'           => array (
@@ -271,21 +271,24 @@ class WP_fullSocial_Widget extends WP_Widget {
             'count' => $instance[$social['id'].'_count']
           , 'number' => $number
         ));
-        break;
+      break;
+
       case "instagram":
         $data['instams'] = _fs_getInstagrams ($instance['instagram_identifiers'], array(
-          'count' => $instance[$social['id'].'_count']
+            'count' => $instance[$social['id'].'_count']
           , 'client_id' => $instance[$social['id'].'_client_id']
 
         ));
-        break;
-       case "facebook":
+      break;
+
+      case "facebook":
         $data['facebook'] = _fs_getFacebook ($instance['facebook_identifiers'], array(
             'width' => $instance[$social['id'].'_width']
           , 'app_id' => $instance[$social['id'].'_app_id']
           , 'height' => $instance[$social['id'].'_height']
 
         ));
+      break;
     }
 
 
