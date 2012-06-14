@@ -40,7 +40,7 @@
               });
             });
 
-            // setInterval(function() { tab.click(); }, refreshTime);
+           //setInterval(function() { tab.click(); }, refreshTime);
 
           break;
         }
@@ -119,6 +119,7 @@
 
     // delegation in widget tabs
     widgets.delegate('.wp-fullsocial-widget-tabs ul li', 'mouseenter', function (ev) {
+      $(this).click();
       n = $(this).data('n');
       showBlock(n, $(this));
     });

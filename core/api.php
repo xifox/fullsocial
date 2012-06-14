@@ -24,6 +24,7 @@ function _fs_getData ($url) {
 
 function _fs_loadLocalFile ($id) {
   $localFile = _fs_upload_folder.$id.'.txt';
+
   $handler = fopen($localFile, "r");
   $local = fread($handler, filesize($localFile));
   fclose($handler);
@@ -39,7 +40,7 @@ function _fs_saveLocalFile ($id, $data) {
   fclose($fh);
 }
 
-function _fs_localFileExist ($id) {
+function _fs_localFileExists ($id) {
   $localFile = _fs_upload_folder.$id.'.txt';
   return (file_exists($localFile));
 }
@@ -48,8 +49,8 @@ function _fs_getTwitts ($ids, $params) {
   $_ids = urlencode($ids);
   $fn = 'twitter_'.$ids.'_'.$params['number'];
 
-  if (_fs_localFileExist($fn) && false) {
-    $tws = json_decode(_fs_loadLocalFile($ids), true);
+  if (!$params['retrieve'] and _fs_localFileExists($fn)) {
+    $tws = json_decode(_fs_loadLocalFile($fn), true);
   } else {
     $tws = array ();
     $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
@@ -62,11 +63,12 @@ function _fs_getTwitts ($ids, $params) {
 
   return $tws;
 }
+
 function _fs_getInstagrams ($ids, $params) {
   $id = 'instagram';
   $ids = explode(',', $ids);
 
-  if (_fs_localFileExist($id) and false) {
+  if (!$params['retrieve'] && false) {
     $int = json_decode(_fs_loadLocalFile($id), true);
   } else {
     $int = array ();
@@ -95,7 +97,7 @@ function _fs_getInstagrams ($ids, $params) {
         }
       }*/
     }
-    _fs_saveLocalFile('instagrams', json_encode($int));
+    _fs_saveLocalFile($id, json_encode($int));
   }
   return $int;
 }

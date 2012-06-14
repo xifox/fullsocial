@@ -73,6 +73,18 @@ class WP_fullSocial_Widget extends WP_Widget {
   }
 
   /**
+   * update update date property
+   */
+
+  function updateUpdatedDate ($type, $number, $all_instances, $instance) {
+    $instance[$type.'_updated'] = date('c');
+    $all_instances[$number] = $instance;
+
+    $this->save_settings($all_instances);
+    $this->updated = true;
+  }
+
+  /**
    * redenring function used to async requests
    */
 
@@ -80,14 +92,34 @@ class WP_fullSocial_Widget extends WP_Widget {
     $type = (isset($type) and strlen($type) > 0) ? $type : $_GET['type'];
     $number = isset($number) ? $number : $_GET['number'];
 
-    $instances = $this->get_settings();
-    $instance = $instances[$number];
+    $all_instances = $this->get_settings();
+    $instance = $all_instances[$number];
+
+    $retrieve = true;
+
+    if (!isset($instance['twitter_updated'])) {
+      $this->updateUpdatedDate('twitter', $number, $all_instances, $instance);
+    } else {
+      if (strlen($instance['twitter_updated']) < 1) {
+        $this->updateUpdatedDate('twitter', $number, $all_instances, $instance);
+      } else {
+
+        $prev_date = strtotime($instance['twitter_updated']);
+        $now = strtotime('now');
+        $diff = $now - $prev_date;
+
+        if ($diff > 90) {
+          $this->updateUpdatedDate('twitter', $number, $all_instances, $instance);
+        } else {
+          $retrieve = false;
+        }
+
+      }
+    }
 
     $socials = $this->schema();
     $social = $socials[$type];
-
-    // print widget block
-    $data = $this->getDataSocial($social, $instance, $number);
+    $data = $this->getDataSocial($social, $instance, $number, $retrieve, false);
     $id = $social['id'];
     include('templates/'.$social['front-tmp']);
   }
@@ -125,7 +157,15 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'desc'          =>  'Add the terms to show, can be an account (@account) or hashtag (#hashtag) separate by coma.'
                     , 'value'         =>  '@summitbechtel, #jamboree'
                   )
+
+                , 'updated'         => array (
+                      'name'          =>  'updated'
+                    , 'type'          =>  'hidden'
+                    , 'desc'          =>  'updating date'
+                    , 'value'         =>  '' 
+                  )
                 )
+
             , 'front-tmp'             => 'fullsocial-twitter.php'
             , 'back-tmp'              => 'fullsocial-twitter.php'
           )
@@ -162,6 +202,13 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'type'          =>  'checkbox'
                     , 'desc'          =>  'Enable Instagram tab'
                     , 'value'         =>  'on'
+                  )
+
+                , 'updated'         => array (
+                      'name'          =>  'updated'
+                    , 'type'          =>  'hidden'
+                    , 'desc'          =>  'updating date'
+                    , 'value'         =>  '' 
                   )
             )
         , 'front-tmp'             => 'fullsocial-instagram.php'
@@ -254,25 +301,31 @@ class WP_fullSocial_Widget extends WP_Widget {
    * return data for each social
    */
 
-  function getDataSocial ($social, $instance, $number) {
+  function getDataSocial ($social, $instance, $number, $retrieve, $only_headers) {
     // default data
     $data = array(
         'name'              => $social['name']
       , 'enabled'           => $instance[$social['id'].'_enabled'] == 'on'
     );
 
+    if ($only_headers) {
+      return $data;
+    }
+
     switch ($social['id']) {
       case "twitter":
         $data['twitts'] = _fs_getTwitts($instance['twitter_identifiers'], array(
-            'count' => $instance[$social['id'].'_count']
-          , 'number' => $number
+            'count'         => $instance[$social['id'].'_count']
+          , 'number'        => $number
+          , 'retrieve'      => $retrieve
         ));
       break;
 
       case "instagram":
         $data['instams'] = _fs_getInstagrams ($instance['instagram_identifiers'], array(
-            'count' => $instance[$social['id'].'_count']
-          , 'client_id' => $instance[$social['id'].'_client_id']
+            'count'         => $instance[$social['id'].'_count']
+          , 'client_id'     => $instance[$social['id'].'_client_id']
+          , 'retrieve'      => $retrieve
 
         ));
       break;
@@ -286,7 +339,6 @@ class WP_fullSocial_Widget extends WP_Widget {
         ));
       break;
     }
-
 
     return $data;
   }
@@ -309,11 +361,9 @@ class WP_fullSocial_Widget extends WP_Widget {
 
   function update($new_instance, $old_instance) {
     $data = array();
-
     foreach($this->getFields() as $k => $field) {
       $data[$k] = strip_tags($new_instance[$k]);
     }
-
     return $data;
   }
 
@@ -333,11 +383,8 @@ class WP_fullSocial_Widget extends WP_Widget {
 }
 
 function widget_wp_fullsocial() {
-  $coco = register_widget('WP_fullSocial_Widget');
-  return $coco;
+  return register_widget('WP_fullSocial_Widget');
 }
-
-
 add_action('widgets_init', 'widget_wp_fullsocial');
 
 

@@ -3,7 +3,7 @@
     <ul>
     <?php $c = 0; ?>
     <?php foreach($this->schema() as $k => $social) : ?>
-    <?php $data = $this->getDataSocial($social, $instance, $this->number) ?>
+    <?php $data = $this->getDataSocial($social, $instance, $this->number, false, true) ?>
       <?php if ($data['enabled']) : ?>
       <li 
         class="<?php echo $data['name'].($c == 0 ? ' current' : ''); ?>" 
