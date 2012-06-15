@@ -230,6 +230,18 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'desc'          =>  'Facebook app Id. Visit https://developers.facebook.com/apps to get yours'
                     , 'value'         =>  ''
                   )
+                  , 'url_page'         => array (
+                      'name'          =>  'url_page'
+                    , 'type'          =>  'text'
+                    , 'desc'          =>  'Facebook page url'
+                    , 'value'         =>  ''
+                  )
+                  , 'include_script'         => array (
+                      'name'          =>  'include_script'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Insert facebook script'
+                    , 'value'         =>  'on'
+                  )
                   , 'width'           => array (
                       'name'          =>  'width'
                     , 'type'          =>  'input'
@@ -349,13 +361,6 @@ class WP_fullSocial_Widget extends WP_Widget {
         $params['client_id'] = $instance[$social['id'].'_client_id'];
 
         $data['instams']    = _fs_getInstagrams ($instance['instagram_identifiers'], $params);
-      break;
-
-      case "facebook":
-        $params['width'] = $instance[$social['id'].'width'];
-        $params['height'] = $instance[$social['id'].'height'];
- 
-        $data['facebook'] = _fs_getFacebook ($instance['facebook_app_id'], $params);
       break;
 
       case "googleplus":

@@ -28,7 +28,11 @@
             };
 
         tab.click(function(ev) {
-          if (tab.hasClass('widget-loading')) return;
+          if (
+               tab.hasClass('widget-loading')
+            || tab.data('type') == 'facebook'
+          ) return;
+
           (function(reference) {
             getData(params, widget, tab.data('n'), function (data, textStatus, jqXHR) {
             });
