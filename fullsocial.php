@@ -91,7 +91,7 @@ class WP_fullSocial_Widget extends WP_Widget {
   function renderSocialBlock ($type, $number) {
     $type = (isset($type) and strlen($type) > 0) ? $type : $_GET['type'];
     $number = isset($number) ? $number : $_GET['number'];
-
+    
     $all_instances = $this->get_settings();
     $instance = $all_instances[$number];
 
@@ -121,6 +121,7 @@ class WP_fullSocial_Widget extends WP_Widget {
     $social = $socials[$type];
     $data = $this->getDataSocial($social, $instance, $number, $retrieve, false);
     $id = $social['id'];
+
     include('templates/'.$social['front-tmp']);
   }
 

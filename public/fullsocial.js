@@ -27,23 +27,15 @@
               , number: widget.data('number')
             };
 
-        switch(params.type) {
-          case 'twitter':
-            params.identifiers = tab.data('ids');
-            params.count = tab.data('count');
-
-            tab.click(function(ev) {
-              if (tab.hasClass('widget-loading')) return;
-              getData(params, widget, 0
-              , function (data, textStatus, jqXHR) {
-                reprintBlock(0, tab, data);
-              });
+        tab.click(function(ev) {
+          if (tab.hasClass('widget-loading')) return;
+          (function(reference) {
+            getData(params, widget, tab.data('n'), function (data, textStatus, jqXHR) {
             });
+          })(tab);
+        });
 
-           //setInterval(function() { tab.click(); }, refreshTime);
-
-          break;
-        }
+         //setInterval(function() { tab.click(); }, refreshTime);
       });
     }
 
@@ -52,14 +44,12 @@
      */
 
       function getData (params, widget, n, fn) {
-        var tab = widget.find('.wp-fullsocial-widget-tabs ul li:nth-child('
-                    + (n + 1) + ')');
 
-        var block = widget.find('.wp-fullsocial-blocks ul li:nth-child('
-                          + (n + 1) + ')');
+        var tab = widget.find('.wp-fullsocial-widget-tabs ul li').eq(n);
+        var block = widget.find('.wp-fullsocial-blocks ul li.wp-fullsocial-block').eq(n);
 
         params.action = 'render_social';
-        params.type = 'twitter';
+        params.type = tab.data('type');
 
         $.ajax({
             url: 'wp-admin/admin-ajax.php'
@@ -70,22 +60,12 @@
             }
           , success: function (data) {
               tab.removeClass('widget-loading');
-              block.removeClass('widget-loading');
-              fn(data);
+              block
+                .removeClass('widget-loading')
+                .html(data);
             }
         });
       }
-
-
-      /**
-       * social apis
-       */
-
-      var apis = {};
-
-      apis.twitter = function () {
-      }
-
 
     /**
      * show block
