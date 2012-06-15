@@ -357,7 +357,7 @@ class WP_fullSocial_Widget extends WP_Widget {
     extract($args);
     extract($instance);
 
-    include('templates/container.php');
+    include('templates/loader.php');
     echo $after_widget;
   }
 
