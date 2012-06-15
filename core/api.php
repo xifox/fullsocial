@@ -47,7 +47,7 @@ function _fs_localFileExists ($id) {
 
 function _fs_getTwitts ($ids, $params) {
   $_ids = urlencode($ids);
-  $fn = 'twitter_'.$ids.'_'.$params['number'];
+  $fn = $params['id'].'_'.$ids.'_'.$params['number'];
 
   if (!$params['retrieve'] and _fs_localFileExists($fn)) {
     $tws = json_decode(_fs_loadLocalFile($fn), true);
@@ -65,11 +65,11 @@ function _fs_getTwitts ($ids, $params) {
 }
 
 function _fs_getInstagrams ($ids, $params) {
-  $id = 'instagram';
+  $fn = $params['id'].'_'.$ids.'_'.$params['number'];
   $ids = explode(',', $ids);
 
-  if (!$params['retrieve'] && false) {
-    $int = json_decode(_fs_loadLocalFile($id), true);
+  if (!$params['retrieve'] and _fs_localFileExists($fn)) {
+    $int = json_decode(_fs_loadLocalFile($fn), true);
   } else {
     $int = array ();
     $user = array();
@@ -78,6 +78,7 @@ function _fs_getInstagrams ($ids, $params) {
         $term = substr($term, 1);
         $url = "https://api.instagram.com/v1/tags/%s/media/recent?client_id=%s";
         $url = sprintf($url, urlencode($term), trim($params['client_id']));
+
         array_push($int, json_decode(_fs_getData($url), true));
       }
       /*
@@ -97,7 +98,7 @@ function _fs_getInstagrams ($ids, $params) {
         }
       }*/
     }
-    _fs_saveLocalFile($id, json_encode($int));
+    _fs_saveLocalFile($fn, json_encode($int));
   }
   return $int;
 }

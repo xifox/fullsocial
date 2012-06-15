@@ -97,19 +97,21 @@ class WP_fullSocial_Widget extends WP_Widget {
 
     $retrieve = true;
 
-    if (!isset($instance['twitter_updated'])) {
-      $this->updateUpdatedDate('twitter', $number, $all_instances, $instance);
+    $updated_field = $instance[$type.'_updated'];
+
+    if (!isset($updated_field)) {
+      $this->updateUpdatedDate($type, $number, $all_instances, $instance);
     } else {
-      if (strlen($instance['twitter_updated']) < 1) {
-        $this->updateUpdatedDate('twitter', $number, $all_instances, $instance);
+      if (strlen($updated_field) < 1) {
+        $this->updateUpdatedDate($type, $number, $all_instances, $instance);
       } else {
 
-        $prev_date = strtotime($instance['twitter_updated']);
+        $prev_date = strtotime($updated_field);
         $now = strtotime('now');
         $diff = $now - $prev_date;
 
-        if ($diff > 90) {
-          $this->updateUpdatedDate('twitter', $number, $all_instances, $instance);
+        if ($diff > 30) {
+          $this->updateUpdatedDate($type, $number, $all_instances, $instance);
         } else {
           $retrieve = false;
         }
@@ -215,6 +217,7 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'front-tmp'             => 'fullsocial-instagram.php'
         , 'back-tmp'              => 'fullsocial-instagram.php'
       )
+
       // Facebook
       , 'facebook'           => array(
           'name'                  => 'Facebook'
@@ -245,6 +248,13 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'desc'          =>  'Enable Facebook tab'
                     , 'value'         =>  'on'
                   )
+
+                , 'updated'         => array (
+                      'name'          =>  'updated'
+                    , 'type'          =>  'hidden'
+                    , 'desc'          =>  'updating date'
+                    , 'value'         =>  '' 
+                  ) 
             )
         , 'front-tmp'             => 'fullsocial-facebook.php'
         , 'back-tmp'              => 'fullsocial-facebook.php'
@@ -275,6 +285,13 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'type'          =>  'checkbox'
                     , 'desc'          =>  'Enable google plus tab'
                     , 'value'         =>  'on'
+                  )
+
+                , 'updated'         => array (
+                      'name'          =>  'updated'
+                    , 'type'          =>  'hidden'
+                    , 'desc'          =>  'updating date'
+                    , 'value'         =>  '' 
                   )
             )
         , 'front-tmp'             => 'fullsocial-googleplus.php'
@@ -315,7 +332,8 @@ class WP_fullSocial_Widget extends WP_Widget {
     }
 
     $params = array(
-        'number'        =>  $number
+        'number'        => $number
+      , 'id'            => $social['id']
       , 'retrieve'      => $retrieve
     );
 
