@@ -280,7 +280,6 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'back-tmp'              => 'fullsocial-googleplus.php'
       )
 
-
     );
   }
 
@@ -307,41 +306,46 @@ class WP_fullSocial_Widget extends WP_Widget {
         'name'              => $social['name']
       , 'id'                => $social['id']
       , 'enabled'           => $instance[$social['id'].'_enabled'] == 'on'
-      , 'number'        => $number
-      , 'retrieve'      => $retrieve
+      , 'number'            => $number
     );
 
     if ($only_headers) {
       return $data;
     }
 
+    $params = array(
+        'number'        =>  $number
+      , 'retrieve'      => $retrieve
+    );
+
     switch ($social['id']) {
       case "twitter":
-        $data['twitts']     = _fs_getTwitts($instance['twitter_identifiers'], array(
-            'count'         => $instance[$social['id'].'_count']
-        ));
+        $params['count'] = $instance[$social['id'].'_count'];
+
+        $data['twitts'] = _fs_getTwitts($instance['twitter_identifiers'], $params);
       break;
 
       case "instagram":
-        $data['instams']    = _fs_getInstagrams ($instance['instagram_identifiers'], array(
-            'count'         => $instance[$social['id'].'_count']
-          , 'client_id'     => $instance[$social['id'].'_client_id']
-        ));
+        $params['count'] = $instance[$social['id'].'_count'];
+        $params['client_id'] = $instance[$social['id'].'_client_id'];
+
+        $data['instams']    = _fs_getInstagrams ($instance['instagram_identifiers'], $params);
       break;
 
       case "facebook":
-        $data['facebook'] = _fs_getFacebook ($instance['facebook_app_id'], array(
-            'width'       => $instance[$social['id'].'_width']
-          , 'height'      => $instance[$social['id'].'_height']
-        ));
+        $params['width'] = $instance[$social['id'].'width'];
+        $params['height'] = $instance[$social['id'].'height'];
+ 
+        $data['facebook'] = _fs_getFacebook ($instance['facebook_app_id'], $params);
       break;
-    
-     case "googleplus":
-        $data['googleplus'] = _fs_getGoogleplus ($instance['googleplus_key'], array(
-            'width'         => $instance[$social['id'].'_userid']
-        ));
+
+      case "googleplus":
+        $params['userid'] = $instance[$social['id'].'_usedid'];
+
+        $data['googleplus'] = _fs_getGoogleplus ($instance['googleplus_key'], $params);
       break;
     }
+
     return $data;
   }
 
