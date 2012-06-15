@@ -101,3 +101,39 @@ function _fs_getInstagrams ($ids, $params) {
   }
   return $int;
 }
+function _fs_getFacebook ($ids, $params) {
+  $_ids = urlencode($ids);
+  $fn = 'facebook_'.$ids.'_'.$params['number'];
+
+  if (!$params['retrieve'] and _fs_localFileExists($fn)) {
+    $tws = json_decode(_fs_loadLocalFile($fn), true);
+  } else {
+    $tws = array ();
+    $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
+    $url = sprintf($url, $_ids, $params['count']);
+
+    array_push($tws, json_decode(_fs_getData($url), true));
+
+    _fs_saveLocalFile($fn, json_encode($tws));
+  }
+
+  return $tws;
+}
+function _fs_getGoogleplus ($ids, $params) {
+  $_ids = urlencode($ids);
+  $fn = 'twitter_'.$ids.'_'.$params['number'];
+
+  if (!$params['retrieve'] and _fs_localFileExists($fn)) {
+    $tws = json_decode(_fs_loadLocalFile($fn), true);
+  } else {
+    $tws = array ();
+    $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
+    $url = sprintf($url, $_ids, $params['count']);
+
+    array_push($tws, json_decode(_fs_getData($url), true));
+
+    _fs_saveLocalFile($fn, json_encode($tws));
+  }
+
+  return $tws;
+}  
