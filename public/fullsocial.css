@@ -40,29 +40,29 @@
   color: #eee;
 }
 
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Twitter {
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.twitter {
   background: url('images/logos.png') no-repeat -50px -50px;
 }
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Twitter.current{
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.twitter.current{
   background: #fff url('images/logos.png') no-repeat -50px 0px;
 }
 
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Facebook {
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.facebook {
   background: url('images/logos.png') no-repeat -0px -50px;
 }
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Facebook.current{
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.facebook.current{
   background: #fff url('images/logos.png') no-repeat -0px 0px;
 }
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Googleplus {
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.googleplus {
   background: url('images/logos.png') no-repeat -150px -50px;
 }
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Googleplus.current{
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.googleplus.current{
   background: #fff  url('images/logos.png') no-repeat -150px 0px;
 }
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Instagram {
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.instagram {
   background: url('images/logos.png') no-repeat -100px -50px;
 }
-.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.Instagram.current{
+.wp-fullsocial-widget .wp-fullsocial-widget-tabs ul li.instagram.current{
   background: #fff url('images/logos.png') no-repeat -100px 0px;
 }
 

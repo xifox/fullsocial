@@ -6,7 +6,7 @@
     <?php $data = $this->getDataSocial($social, $instance, $this->number, false, true) ?>
       <?php if ($data['enabled']) : ?>
       <li 
-        class="<?php echo $data['name'].($c == 0 ? ' current' : ''); ?>" 
+        class="<?php echo $data['id'].($c == 0 ? ' current' : ''); ?>" 
         data-n="<?php echo $c; ?>" 
         data-type="<?php echo $social['id']; ?>" 
         <?php

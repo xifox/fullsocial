@@ -217,10 +217,10 @@ class WP_fullSocial_Widget extends WP_Widget {
       // Facebook
       , 'facebook'           => array(
           'name'                  => 'Facebook'
-        , 'id'                    => 'Facebook'
+        , 'id'                    => 'facebook'
         , 'description'           => 'Facebook social network'
         , 'fields'                  => array (
-                 'app_id'         => array (
+                  'app_id'         => array (
                       'name'          =>  'app_id'
                     , 'type'          =>  'text'
                     , 'desc'          =>  'Facebook app Id. Visit https://developers.facebook.com/apps to get yours'
@@ -230,15 +230,15 @@ class WP_fullSocial_Widget extends WP_Widget {
                       'name'          =>  'width'
                     , 'type'          =>  'input'
                     , 'desc'          =>  ''
-                    , 'value'         =>  '10'
+                    , 'value'         =>  '220'
                   )
                   , 'height'           => array (
                       'name'          =>  'height'
                     , 'type'          =>  'input'
                     , 'desc'          =>  ''
-                    , 'value'         =>  '10'
+                    , 'value'         =>  '400'
                   )
-                , 'enabled'         => array (
+                  , 'enabled'         => array (
                       'name'          =>  'enabled'
                     , 'type'          =>  'checkbox'
                     , 'desc'          =>  'Enable Facebook tab'
@@ -252,7 +252,7 @@ class WP_fullSocial_Widget extends WP_Widget {
         // google+
       , 'googleplus'          => array(
           'name'                  => 'Google+'
-        , 'id'                    => 'google+'
+        , 'id'                    => 'googleplus'
         , 'description'           => 'Google plus social network'
         , 'fields'                  => array (
                   'key'              => array (
@@ -305,7 +305,10 @@ class WP_fullSocial_Widget extends WP_Widget {
     // default data
     $data = array(
         'name'              => $social['name']
+      , 'id'                => $social['id']
       , 'enabled'           => $instance[$social['id'].'_enabled'] == 'on'
+      , 'number'        => $number
+      , 'retrieve'      => $retrieve
     );
 
     if ($only_headers) {
@@ -314,32 +317,31 @@ class WP_fullSocial_Widget extends WP_Widget {
 
     switch ($social['id']) {
       case "twitter":
-        $data['twitts'] = _fs_getTwitts($instance['twitter_identifiers'], array(
+        $data['twitts']     = _fs_getTwitts($instance['twitter_identifiers'], array(
             'count'         => $instance[$social['id'].'_count']
-          , 'number'        => $number
-          , 'retrieve'      => $retrieve
         ));
       break;
 
       case "instagram":
-        $data['instams'] = _fs_getInstagrams ($instance['instagram_identifiers'], array(
+        $data['instams']    = _fs_getInstagrams ($instance['instagram_identifiers'], array(
             'count'         => $instance[$social['id'].'_count']
           , 'client_id'     => $instance[$social['id'].'_client_id']
-          , 'retrieve'      => $retrieve
-
         ));
       break;
 
       case "facebook":
-        $data['facebook'] = _fs_getFacebook ($instance['facebook_identifiers'], array(
-            'width' => $instance[$social['id'].'_width']
-          , 'app_id' => $instance[$social['id'].'_app_id']
-          , 'height' => $instance[$social['id'].'_height']
-
+        $data['facebook'] = _fs_getFacebook ($instance['facebook_app_id'], array(
+            'width'       => $instance[$social['id'].'_width']
+          , 'height'      => $instance[$social['id'].'_height']
+        ));
+      break;
+    
+     case "googleplus":
+        $data['googleplus'] = _fs_getGoogleplus ($instance['googleplus_key'], array(
+            'width'         => $instance[$social['id'].'_userid']
         ));
       break;
     }
-
     return $data;
   }
 
