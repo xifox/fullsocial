@@ -40,17 +40,14 @@ include('core/api.php');
 
 class WP_fullSocial_Widget extends WP_Widget {
 
+  var $plugin_dirname = 'fullsocial';
+
   /**
    * Constuctor
    */
 
   function __construct()  {
-
-    // create tmp folder
-    $upload_dir = wp_upload_dir();
-    $tmp_folder = $upload_dir['basedir'].'/_wp-fullsocial-plugin';
-
-    $wp_plugin_folder = get_bloginfo('url').'/wp-content/plugins/fullsocial';
+    $wp_plugin_folder = get_bloginfo('url').'/wp-content/plugins/'.$this->plugin_dirname;
 
     // add stylesheet file
     wp_enqueue_style('wp-github', $wp_plugin_folder.'/public/fullsocial.css');
@@ -59,6 +56,8 @@ class WP_fullSocial_Widget extends WP_Widget {
     wp_enqueue_script('wp-github', $wp_plugin_folder.'/public/fullsocial.js', array('jquery'));
 
     // creates upload plugin folder
+    $upload_dir = wp_upload_dir();
+    $tmp_folder = $upload_dir['basedir'].'/_wp-fullsocial-plugin';
     if (!file_exists($tmp_folder)) {
       mkdir($tmp_folder, 0777);
     }
@@ -73,7 +72,7 @@ class WP_fullSocial_Widget extends WP_Widget {
   }
 
   /**
-   * update update date property
+   * update update date property for each social
    */
 
   function updateUpdatedDate ($type, $number, $all_instances, $instance) {
@@ -85,7 +84,7 @@ class WP_fullSocial_Widget extends WP_Widget {
   }
 
   /**
-   * redenring function used to async requests
+   * redering function used for async requests
    */
 
   function renderSocialBlock ($type, $number) {
@@ -124,7 +123,16 @@ class WP_fullSocial_Widget extends WP_Widget {
     $data = $this->getDataSocial($social, $instance, $number, $retrieve, false);
     $id = $social['id'];
 
-    include('templates/'.$social['front-tmp']);
+    // load templates
+    $tpl = 'templates/'.$social['front-tpl'];
+    $custom_tpl = get_template_directory().'/'.$this->plugin_dirname.'/'.$social['front-tpl'];
+
+    if (file_exists($custom_tpl)) {
+      include($custom_tpl);
+    } else {
+      include($tpl);
+    }
+
   }
 
   /**
@@ -169,8 +177,8 @@ class WP_fullSocial_Widget extends WP_Widget {
                   )
                 )
 
-            , 'front-tmp'             => 'fullsocial-twitter.php'
-            , 'back-tmp'              => 'fullsocial-twitter.php'
+            , 'front-tpl'             => 'fullsocial-twitter.php'
+            , 'back-tpl'              => 'fullsocial-twitter.php'
           )
 
         // Instagram
@@ -214,8 +222,8 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'value'         =>  '' 
                   )
             )
-        , 'front-tmp'             => 'fullsocial-instagram.php'
-        , 'back-tmp'              => 'fullsocial-instagram.php'
+        , 'front-tpl'             => 'fullsocial-instagram.php'
+        , 'back-tpl'              => 'fullsocial-instagram.php'
       )
 
       // Facebook
@@ -268,8 +276,8 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'value'         =>  '' 
                   ) 
             )
-        , 'front-tmp'             => 'fullsocial-facebook.php'
-        , 'back-tmp'              => 'fullsocial-facebook.php'
+        , 'front-tpl'             => 'fullsocial-facebook.php'
+        , 'back-tpl'              => 'fullsocial-facebook.php'
       )
 
         // google+
@@ -306,8 +314,8 @@ class WP_fullSocial_Widget extends WP_Widget {
                     , 'value'         =>  '' 
                   )
             )
-        , 'front-tmp'             => 'fullsocial-googleplus.php'
-        , 'back-tmp'              => 'fullsocial-googleplus.php'
+        , 'front-tpl'             => 'fullsocial-googleplus.php'
+        , 'back-tpl'              => 'fullsocial-googleplus.php'
       )
 
     );
@@ -406,7 +414,7 @@ class WP_fullSocial_Widget extends WP_Widget {
 
     foreach($this->schema() as $k => $social) {
       $fields = $social['fields'];
-      include('core/templates/'.$social['back-tmp']);
+      include('core/templates/'.$social['back-tpl']);
     }
   }
 
