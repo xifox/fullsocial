@@ -290,14 +290,14 @@ class WP_fullSocial_Widget extends WP_Widget {
                       'name'            =>  'key'
                     , 'type'            =>  'text'
                     , 'desc'            =>  'google API key'
-                    , 'value'           =>  ''
+                    , 'value'           =>  '103540267989268320816'
                   )
 
                 , 'userid'              => array (
                       'name'            =>  'userid'
                     , 'type'            =>  'text'
                     , 'desc'            =>  'google User ID'
-                    , 'value'           =>  ''
+                    , 'value'           =>  'AIzaSyCgG-xlB3WKvJ8Oz3BgnXcM0A1O4SLh0tw'
                   )
 
                 , 'enabled'         => array (
@@ -372,9 +372,9 @@ class WP_fullSocial_Widget extends WP_Widget {
       break;
 
       case "googleplus":
-        $params['userid'] = $instance[$social['id'].'_usedid'];
+        $params['userid'] = $instance[$social['id'].'_userid'];
 
-        $data['googleplus'] = _fs_getGoogleplus ($instance['googleplus_key'], $params);
+        $data['googleplus'] = _fs_getGoogleplus ($instance['googleplus_userid'], $instance['googleplus_key'], $params);
       break;
     }
 

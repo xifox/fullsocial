@@ -73,6 +73,7 @@ function _fs_getInstagrams ($ids, $params) {
   } else {
     $int = array ();
     $user = array();
+
     foreach($ids as $id) {
       if($term = strstr($id,  '#')) {
         $term = substr($term, 1);
@@ -102,39 +103,21 @@ function _fs_getInstagrams ($ids, $params) {
   }
   return $int;
 }
-function _fs_getFacebook ($ids, $params) {
-  $_ids = urlencode($ids);
-  $fn = 'facebook_'.$ids.'_'.$params['number'];
+
+function _fs_getGoogleplus ($userid, $key, $params) {
+  $fn = $params['id'].'_'.$userid.'_'.$key.'_'.$params['number'];
 
   if (!$params['retrieve'] and _fs_localFileExists($fn)) {
-    $tws = json_decode(_fs_loadLocalFile($fn), true);
+    $entries = json_decode(_fs_loadLocalFile($fn), true);
   } else {
-    $tws = array ();
-    $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
-    $url = sprintf($url, $_ids, $params['count']);
+    $entries = array ();
+    $url = "https://www.googleapis.com/plus/v1/people/%s/activities/public?key=%s";
+    $url = sprintf($url, $userid, $key);
 
-    array_push($tws, json_decode(_fs_getData($url), true));
+    array_push($entries, json_decode(_fs_getData($url), true));
 
-    _fs_saveLocalFile($fn, json_encode($tws));
+    _fs_saveLocalFile($fn, json_encode($entries));
   }
 
-  return $tws;
-}
-function _fs_getGoogleplus ($ids, $params) {
-  $_ids = urlencode($ids);
-  $fn = 'twitter_'.$ids.'_'.$params['number'];
-
-  if (!$params['retrieve'] and _fs_localFileExists($fn)) {
-    $tws = json_decode(_fs_loadLocalFile($fn), true);
-  } else {
-    $tws = array ();
-    $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
-    $url = sprintf($url, $_ids, $params['count']);
-
-    array_push($tws, json_decode(_fs_getData($url), true));
-
-    _fs_saveLocalFile($fn, json_encode($tws));
-  }
-
-  return $tws;
+  return $entries;
 }  
