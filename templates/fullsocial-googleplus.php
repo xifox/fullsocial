@@ -6,7 +6,7 @@
 <ul>
   <?php foreach($entries as $entry) : ?>
       <li>
-        <a href="<?php echo $entry['url']; ?>" title="_blank">
+        <a href="<?php echo $entry['url']; ?>" target="_blank">
           <?php echo html_entity_decode($entry['title']); ?>
         </a>
       </li>
