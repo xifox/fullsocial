@@ -1,14 +1,24 @@
+<?php
+  $rss = $data;
+  $maxitems = $rss->get_item_quantity($instance['feedrss_count']);
+  $items = $rss->get_items(0, $maxitems);
+?>
+
 <div class="wp-fullsocial-widget-<?php echo $id; ?>">
-<div id="fb-root"></div>
-<?php if($instance['facebook_include_script']) :?>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=<?php echo $instance['facebook_app_id'] ?>";
-      fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<?php endif; ?>
-  <div class="fb-like-box" data-href="<?php echo $instance['facebook_url_page'] ?>" data-width="<?php echo $instance['facebook_width'] ?>" data-height="<?php echo $instance['facebook_height'] ?>" data-show-faces="true" data-border-color="white" data-stream="false" data-header="false"></div>
+  <ul>
+    <?php if ($maxitems == 0) : ?>
+    <li>No items.</li>
+    <?php else : ?>
+    <?php foreach ($items as $item) : ?>
+
+    <li>
+      <a href='<?php echo esc_url( $item->get_permalink() ); ?>'
+        title='<?php echo 'Posted '.$item->get_date('j F Y | g:i a'); ?>'>
+        <?php echo esc_html( $item->get_title() ); ?></a>
+    </li>
+
+    <?php endforeach; ?>
+    <?php endif; ?>
+  </ul>
 <div class="clear"></div>
 </div>

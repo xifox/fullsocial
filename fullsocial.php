@@ -67,7 +67,7 @@ class WP_fullSocial_Widget extends WP_Widget {
       , 'description'   => 'wordpress full social connect plugin'
     );
 
-    add_action('wp_ajax_render_social', array($this, 'renderSocialBlock'));
+    add_action('wp_ajax_render_social', array($this, 'renderSocialBlock'), 10, 2);
     parent::__construct('wp-fullsocial-plugin', 'fullSocial', $opciones);
   }
 
@@ -87,10 +87,12 @@ class WP_fullSocial_Widget extends WP_Widget {
    * redering function used for async requests
    */
 
-  function renderSocialBlock ($type, $number) {
-    $type = (isset($type) and strlen($type) > 0) ? $type : $_GET['type'];
-    $number = isset($number) ? $number : $_GET['number'];
-    
+  function renderSocialBlock () {
+    $args = func_get_args();
+
+    $type = (isset($args[0]) and strlen($args[0]) > 0) ? $args[0] : $_GET['type'];
+    $number = isset($args[1]) ? $args[1] : $_GET['number'];
+
     $all_instances = $this->get_settings();
     $instance = $all_instances[$number];
 
@@ -133,6 +135,7 @@ class WP_fullSocial_Widget extends WP_Widget {
       include($tpl);
     }
 
+    return true;
   }
 
   /**
@@ -425,6 +428,10 @@ class WP_fullSocial_Widget extends WP_Widget {
         $params['userid'] = $instance[$social['id'].'_userid'];
 
         $data['googleplus'] = _fs_getGoogleplus ($instance['googleplus_userid'], $instance['googleplus_key'], $params);
+      break;
+
+      case "feedrss":
+        $data = fetch_feed($instance['feedrss_url']);
       break;
     }
 

@@ -120,4 +120,4 @@ function _fs_getGoogleplus ($userid, $key, $params) {
   }
 
   return $entries;
-}  
+} 
