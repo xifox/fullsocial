@@ -181,51 +181,6 @@ class WP_fullSocial_Widget extends WP_Widget {
             , 'back-tpl'              => 'fullsocial-twitter.php'
           )
 
-        // Instagram
-      , 'instagram'           => array(
-          'name'                  => 'Instagram'
-        , 'id'                    => 'instagram'
-        , 'description'           => 'Instagram social network'
-        , 'fields'                  => array (
-                'identifiers'            => array (
-                      'name'            =>  'identifiers'
-                    , 'type'            =>  'textarea'
-                    , 'desc'            =>  'Add the terms to show, can be an account (@account) or hashtag (#hashtag) separate by coma.'
-                    , 'value'           =>  '@summit, #summit'
-                  )
-
-                , 'client_id'         => array (
-                      'name'          =>  'client_id'
-                    , 'type'          =>  'text'
-                    , 'desc'          =>  'Instagram Client Id. Visit http://instagram.com/developer/register/ to get yours'
-                    , 'value'         =>  '12f66edc57124e2c966a7582e39472a2'
-                  )
-               
-                  , 'count'           => array (
-                      'name'          =>  'count'
-                    , 'type'          =>  'input'
-                    , 'desc'          =>  'Amount of Instagrams'
-                    , 'value'         =>  '10'
-                  )
-
-                , 'enabled'         => array (
-                      'name'          =>  'enabled'
-                    , 'type'          =>  'checkbox'
-                    , 'desc'          =>  'Enable Instagram tab'
-                    , 'value'         =>  'on'
-                  )
-
-                , 'updated'         => array (
-                      'name'          =>  'updated'
-                    , 'type'          =>  'hidden'
-                    , 'desc'          =>  'updating date'
-                    , 'value'         =>  '' 
-                  )
-            )
-        , 'front-tpl'             => 'fullsocial-instagram.php'
-        , 'back-tpl'              => 'fullsocial-instagram.php'
-      )
-
       // Facebook
       , 'facebook'           => array(
           'name'                  => 'Facebook'
@@ -279,7 +234,50 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'front-tpl'             => 'fullsocial-facebook.php'
         , 'back-tpl'              => 'fullsocial-facebook.php'
       )
+        // Instagram
+      , 'instagram'           => array(
+          'name'                  => 'Instagram'
+        , 'id'                    => 'instagram'
+        , 'description'           => 'Instagram social network'
+        , 'fields'                  => array (
+                'identifiers'            => array (
+                      'name'            =>  'identifiers'
+                    , 'type'            =>  'textarea'
+                    , 'desc'            =>  'Add the terms to show, can be an account (@account) or hashtag (#hashtag) separate by coma.'
+                    , 'value'           =>  '@summit, #summit'
+                  )
 
+                , 'client_id'         => array (
+                      'name'          =>  'client_id'
+                    , 'type'          =>  'text'
+                    , 'desc'          =>  'Instagram Client Id. Visit http://instagram.com/developer/register/ to get yours'
+                    , 'value'         =>  '12f66edc57124e2c966a7582e39472a2'
+                  )
+               
+                  , 'count'           => array (
+                      'name'          =>  'count'
+                    , 'type'          =>  'input'
+                    , 'desc'          =>  'Amount of Instagrams'
+                    , 'value'         =>  '10'
+                  )
+
+                , 'enabled'         => array (
+                      'name'          =>  'enabled'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Enable Instagram tab'
+                    , 'value'         =>  'on'
+                  )
+
+                , 'updated'         => array (
+                      'name'          =>  'updated'
+                    , 'type'          =>  'hidden'
+                    , 'desc'          =>  'updating date'
+                    , 'value'         =>  '' 
+                  )
+            )
+        , 'front-tpl'             => 'fullsocial-instagram.php'
+        , 'back-tpl'              => 'fullsocial-instagram.php'
+      )
         // google+
       , 'googleplus'          => array(
           'name'                  => 'Google+'
@@ -316,6 +314,58 @@ class WP_fullSocial_Widget extends WP_Widget {
             )
         , 'front-tpl'             => 'fullsocial-googleplus.php'
         , 'back-tpl'              => 'fullsocial-googleplus.php'
+      )
+      // rss feed
+      , 'feedrss'          => array(
+          'name'                  => 'Feed rss'
+        , 'id'                    => 'feedrss'
+        , 'description'           => 'Site rss feed'
+        , 'fields'                  => array (
+                   'enabled'         => array (
+                      'name'          =>  'enabled'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Enable rss feed tab'
+                    , 'value'         =>  'on'
+                  )
+                  , 'url'              => array (
+                      'name'            =>  'url'
+                    , 'type'            =>  'text'
+                    , 'desc'            =>  'Site Feed url'
+                    , 'value'           =>  ''
+                  )
+                  , 'count'           => array (
+                      'name'          =>  'count'
+                    , 'type'          =>  'input'
+                    , 'desc'          =>  'Number of post to show'
+                    , 'value'         =>  '5'
+                  )
+            )
+        , 'front-tpl'             => 'fullsocial-feedrss.php'
+        , 'back-tpl'              => 'fullsocial-feedrss.php'
+      )
+      // rss feed
+      , 'newsletter'       => array(
+          'name'                  => 'Newsletter'
+        , 'id'                    => 'newsletter'
+        , 'description'           => 'News letter suscription system'
+        , 'fields'                  => array (
+                  'enabled'         => array (
+                      'name'          =>  'enabled'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Enable Newsletter tab'
+                    , 'value'         =>  'on'
+                  )
+
+                  , 'code'              => array (
+                      'name'            =>  'code'
+                    , 'type'            =>  'textarea'
+                    , 'desc'            =>  'Code to insert suscription'
+                    , 'value'           =>  ''
+                  )
+          
+            )
+        , 'front-tpl'             => 'fullsocial-newsletter.php'
+        , 'back-tpl'              => 'fullsocial-newsletter.php'
       )
 
     );
