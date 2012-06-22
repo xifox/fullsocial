@@ -12,9 +12,12 @@
     <?php foreach ($items as $item) : ?>
 
     <li>
-      <a href='<?php echo esc_url( $item->get_permalink() ); ?>'
+      <strong>
+        <a href='<?php echo esc_url( $item->get_permalink() ); ?>'
         title='<?php echo 'Posted '.$item->get_date('j F Y | g:i a'); ?>'>
         <?php echo esc_html( $item->get_title() ); ?></a>
+      </strong>
+      <p><?php echo $item->get_description(); ?></p>
     </li>
 
     <?php endforeach; ?>
