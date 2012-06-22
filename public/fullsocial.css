@@ -71,7 +71,9 @@
  */
 
 .wp-fullsocial-widget .wp-fullsocial-blocks {
-  padding: 10px
+  padding: 10px;
+  height: 300px;
+  overflow: auto;
 }
 .wp-fullsocial-widget .wp-fullsocial-blocks ul {
   margin: 0;
