@@ -7,7 +7,7 @@
       <li>
         <?php
         $t = $tw['text'];
-        $t = preg_replace('/(http\:\/\/[a-z,A-Z,0-9,_,-,\.,\/]+)/', '<a href="$1">$1</a>', $t);
+        $t = preg_replace('/(http\:\/\/[a-z,A-Z,0-9,_,-,\.,\/]+)/', '<a href="$1" target="_blank">$1</a>', $t);
         ?>
         <img src="<?php echo $tw['profile_image_url']; ?>" />
         <?php echo html_entity_decode($t); ?>
