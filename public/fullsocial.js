@@ -63,6 +63,10 @@
               block.addClass('widget-loading');
             }
           , success: function (data) {
+              if ((/(\n0)$/).test(data)) {
+                data = data.substr(0, data.length - 2);
+              }
+ 
               tab.removeClass('widget-loading');
               block
                 .removeClass('widget-loading')
