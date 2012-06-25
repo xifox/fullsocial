@@ -31,7 +31,6 @@
                   type: tab.data('type')
                 , number: widget.data('number')
               };
-
           getData(params, widget, n);
         });
         //setInterval(function() { tab.click(); }, refreshTime);
