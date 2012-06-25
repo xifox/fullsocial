@@ -7,21 +7,12 @@
       <?php if ($data['enabled']) : ?>
       <li 
         class="<?php echo $data['id'].($c == 0 ? ' current' : ''); ?>" 
-        data-n="<?php echo $c; ?>" 
         data-type="<?php echo $social['id']; ?>" 
-        <?php
-          switch ($social['id']) {
-            case "twitter":
-              echo ' data-ids="'.$instance['twitter_identifiers'].'" ';
-              echo ' data-count="'.$instance['twitter_count'].'" ';
-            break;
-          }
-        ?>
       >
         <?php echo substr($data['name'], 0, 1); ?>
       </li>
+      <?php $c++; ?>
       <?php endif; ?>
-    <?php $c++; ?>
     <?php endforeach; ?>
     </ul>
   </div>
@@ -30,9 +21,11 @@
     <ul>
       <?php $c = 0; ?>
       <?php foreach($this->schema() as $k => $social) : ?>
+        <?php if ($data['enabled']) : ?>
         <li class="wp-fullsocial-block <?php echo $c == 0 ? ' current' : '' ?>">
         <?php $this->renderSocialBlock($social['id'], $this->number); ?>
         </li>
+        <?php endif; ?>
       <?php $c++; ?>
       <?php endforeach; ?>
     </ul>
