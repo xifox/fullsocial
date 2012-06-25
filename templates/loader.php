@@ -22,7 +22,7 @@
     <ul>
       <?php $c = 0; ?>
       <?php foreach($this->schema() as $k => $social) : ?>
-        <?php if ($social['fields']['enabled']['value'] == 'on') : ?>
+        <?php if ($instance[$social['id'].'_enabled'] == 'on') : ?>
         <li class="wp-fullsocial-block <?php echo $c == 0 ? ' current' : '' ?>">
         <?php $this->renderSocialBlock($social['id'], $this->number); ?>
         </li>

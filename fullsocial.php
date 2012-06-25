@@ -458,7 +458,10 @@ class WP_fullSocial_Widget extends WP_Widget {
     $data = array();
     foreach($this->getFields() as $k => $field) {
       $data[$k] = strip_tags($new_instance[$k]);
+      $pair = explode('_', $k);
+      print_r($pair);
     }
+
     return $data;
   }
 
