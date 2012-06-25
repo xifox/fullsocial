@@ -22,25 +22,19 @@
       // update data
       $.each(widget.find('.wp-fullsocial-widget-tabs ul li'), function (i, tab) {
         tab = $(tab);
-        var params = {
-                type: tab.data('type')
-              , number: widget.data('number')
-            };
-
         tab.click(function(ev) {
-          return;
-          if (
-               tab.hasClass('widget-loading')
-            || tab.data('type') == 'facebook'
-          ) return;
+          return
+          if (tab.hasClass('widget-loading') || tab.data('type') == 'facebook') return;
 
-          (function(reference) {
-            getData(params, widget, tab.data('n'), function (data, textStatus, jqXHR) {
-            });
-          })(tab);
+          var n = (tab.prevAll()).length
+            , widget = tab.closest(cssname)
+            , params = {
+                  type: tab.data('type')
+                , number: widget.data('number')
+              };
+          getData(params, widget, n);
         });
-
-         //setInterval(function() { tab.click(); }, refreshTime);
+        //setInterval(function() { tab.click(); }, refreshTime);
       });
     }
 
@@ -49,7 +43,6 @@
      */
 
       function getData (params, widget, n, fn) {
-
         var tab = widget.find('.wp-fullsocial-widget-tabs ul li').eq(n);
         var block = widget.find('.wp-fullsocial-blocks ul li.wp-fullsocial-block').eq(n);
 
@@ -109,7 +102,7 @@
     // delegation in widget tabs
     widgets.delegate('.wp-fullsocial-widget-tabs ul li', 'mouseenter', function (ev) {
       $(this).click();
-      n = $(this).data('n');
+      var n = ($(this).prevAll()).length
       showBlock(n, $(this));
     });
 
