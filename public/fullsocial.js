@@ -28,6 +28,7 @@
             };
 
         tab.click(function(ev) {
+          return;
           if (
                tab.hasClass('widget-loading')
             || tab.data('type') == 'facebook'
