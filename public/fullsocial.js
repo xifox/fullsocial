@@ -23,6 +23,7 @@
       $.each(widget.find('.wp-fullsocial-widget-tabs ul li'), function (i, tab) {
         tab = $(tab);
         tab.click(function(ev) {
+          return
           if (tab.hasClass('widget-loading') || tab.data('type') == 'facebook') return;
 
           var n = (tab.prevAll()).length
