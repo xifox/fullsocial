@@ -8,8 +8,27 @@
     <?php foreach($results as $tw) : ?>
       <li>
         <?php
+
+        // replace links
         $t = $tw['text'];
-        $t = preg_replace('/(http\:\/\/[a-z,A-Z,0-9,_,-,\.,\/]+)/', '<a href="$1">$1</a>', $t);
+        $t = preg_replace('/(http\:\/\/[a-z,A-Z,0-9,_,-,\.,\/]+)/', '<a href="$1" target="_blank">$1</a>', $t);
+
+        // twitter hostname
+        $tw_host = 'https://twitter.com/#!/';
+
+        // replace @user
+        $t = preg_replace('/(@[a-z,A-Z,0-9,_]+)/', '<a href="'.$tw_host.'$1" target="_blank">$1</a>', $t);
+
+        //replace #hashtag
+        $pattern = '/(#[a-z,A-Z,0-9,_]+)/';
+        $hashtag = preg_match_all($pattern, $t, $matches);
+        if (count($matches) > 0) {
+          foreach ($matches[0] as $hash) {
+            $hashtag_link = $tw_host.'search/'.urlencode($hash);
+            $t = preg_replace($pattern, '<a href="'.$hashtag_link.'" target="_blank">$1</a>', $t);
+          }
+        }
+
         ?>
         <img src="<?php echo $tw['profile_image_url']; ?>" />
         <?php echo html_entity_decode($t); ?>
