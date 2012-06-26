@@ -1,6 +1,6 @@
 <div class="widget-container wp-fullsocial-widget" data-number="<?php echo $this->number; ?>">
+  <h3>Connect</h3>
   <div class="wp-fullsocial-widget-tabs">
-    <h3>Connect</h3>
     <ul>
     <?php $c = 0; ?>
     <?php foreach($this->schema() as $k => $social) : ?>
