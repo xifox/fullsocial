@@ -5,19 +5,30 @@
 ?>
 
 <div class="wp-fullsocial-widget-<?php echo $id; ?>">
+  <?php if ($maxitems == 0) : ?>
   <ul>
-    <?php if ($maxitems == 0) : ?>
     <li>No items.</li>
-    <?php else : ?>
-    <?php foreach ($items as $item) : ?>
-
-    <li>
+  </ul>
+  <?php else : ?>
+  <div class="viewport">
+    <h4><?php echo $items[0]->get_title(); ?></h4>
+    <p><?php echo $items[0]->get_description(); ?></p>
+    <p class="go">
+      <a href='<?php echo esc_url( $items[0]->get_permalink() ); ?>' 
+      target="_blank" 
+      title='<?php echo 'Posted '.$items[0]->get_date('j F Y | g:i a'); ?>'>
+      go</a>
+    </p>
+  </div>
+  <ul>
+    <?php foreach ($items as $i => $item) : ?>
+    <li class="<?php echo $i == 0 ? 'current' : '' ?>">
       <strong>
         <a href='<?php echo esc_url( $item->get_permalink() ); ?>'
         title='<?php echo 'Posted '.$item->get_date('j F Y | g:i a'); ?>'>
         <?php echo esc_html( $item->get_title() ); ?></a>
       </strong>
-      <p><?php echo $item->get_description(); ?></p>
+      <p style="display: none"><?php echo $item->get_description(); ?></p>
     </li>
 
     <?php endforeach; ?>
