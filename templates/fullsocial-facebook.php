@@ -1,6 +1,12 @@
 <div class="wp-fullsocial-widget-<?php echo $id; ?>">
 
-<?php if($instance['facebook_include_script']) :?>
+<?php
+echo 'script: '.$instance['facebook_include_script'];
+if($instance['facebook_include_script']) :
+echo $instance['facebook_include_script'];
+
+?>
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
