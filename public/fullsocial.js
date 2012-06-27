@@ -1,11 +1,11 @@
 (function($) {
   $(window).ready(function() {
+
     /**
      * constants
      */
 
     var refreshTime = 5000;
-
     var cssname = '.wp-fullsocial-widget';
 
     // widgets
@@ -16,6 +16,24 @@
     $.each(widgets, function (i, widget) {
       processWidget($(widget));
     });
+
+    /**
+     * widget function
+     */
+
+    function showRSS (el, rss_block) {
+      var n = $(el).prevAll().length;
+      var title = $(el).find('a.rss-link').text()
+      var link = $(el).find('a.rss-link').attr('href');
+      var desc = $(el).find('p').html();
+      var viewport = rss_block.find('.viewport');
+
+      rss_block.find('ul li').removeClass('current');
+
+      el.addClass('current');
+      viewport.find('h4').text(title);
+      viewport.find('p.rss-desc').html(desc);
+    };
 
     // init widgets
     function processWidget (widget) {
@@ -35,6 +53,26 @@
           getData(params, widget, n);
         });
         //setInterval(function() { tab.click(); }, refreshTime);
+        
+        /**
+         * add animation/behaviours, etc to soscial blocks
+         */
+
+        /**
+         * feedrss
+         */
+
+        if (widget.find('.wp-fullsocial-widget-feedrss').length) {
+          var rss_block = widget.find('.wp-fullsocial-widget-feedrss');
+
+          // add click events to each rss title
+          rss_block.delegate('ul li', 'click', function (ev) {
+            ev.preventDefault();
+            if ($(this).hasClass('current')) return;
+            showRSS($(this), rss_block);
+          })
+        }
+
       });
     }
 
