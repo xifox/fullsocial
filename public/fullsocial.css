@@ -100,6 +100,8 @@
 .wp-fullsocial-widget .wp-fullsocial-blocks ul li.wp-fullsocial-block.current {
   display: block;
 }
+
+
 /*** Instagrams ***/
 
 .wp-fullsocial-widget .wp-fullsocial-blocks .instagrams ul li {
@@ -108,10 +110,31 @@
   clear:none;
   float:left;
 }
-.wp-fullsocial-widget .wp-fullsocial-blocks .instagrams ul li img {
+.wp-fullsocial-widget .wp-fullsocial-blocks.instagrams ul li img {
   float: left;
   margin: 0px;
   display: block;
   width:69px; height:69px;
 }
 
+
+/*** Feed RSS ***/
+
+.wp-fullsocial-widget .wp-fullsocial-block.feedrss {
+}
+
+.wp-fullsocial-widget .wp-fullsocial-block.feedrss .viewport {
+}
+
+.wp-fullsocial-widget .wp-fullsocial-block.feedrss .viewport p.go a {
+  padding: 3px 5px;
+  background-color: white;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-block.feedrss ul li {
+  margin-left: 20px;
+}
+
+.wp-fullsocial-widget .wp-fullsocial-block.feedrss ul li.current {
+  list-style: square outside;
+}
