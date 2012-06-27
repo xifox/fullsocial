@@ -64,13 +64,35 @@
 
         if (widget.find('.wp-fullsocial-widget-feedrss').length) {
           var rss_block = widget.find('.wp-fullsocial-widget-feedrss');
+          var current_feed = rss_block.find('ul li:first');
 
           // add click events to each rss title
           rss_block.delegate('ul li', 'click', function (ev) {
             ev.preventDefault();
             if ($(this).hasClass('current')) return;
-            showRSS($(this), rss_block);
-          })
+
+            current_feed = $(this);
+            showRSS(current_feed, rss_block);
+            clearInterval(feedTimer);
+            startFeedTimer();
+          });
+
+          // auto switching
+          var feedTimer;
+          var startFeedTimer = function () {
+            feedTimer = setInterval(function(){
+              if (rss_block.closest('.feedrss').css('display') == 'none') return;
+
+              var new_rss = current_feed.next().length
+                              ? current_feed.next()
+                              : current_feed.closest('ul').find('li:first');
+              current_feed = new_rss;
+
+              showRSS(new_rss, rss_block);
+            }, refreshTime);
+          }
+
+          startFeedTimer();
         }
 
       });
@@ -145,7 +167,6 @@
     });
 
     widgets.delegate('.wp-fullsocial-widget-tabs ul li', 'mouseleave', function (ev) {
-      // console.log("-> this -> ", this);
     });
 
   });
