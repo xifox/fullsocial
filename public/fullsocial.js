@@ -31,7 +31,7 @@
       rss_block.find('ul li').removeClass('current');
 
       el.addClass('current');
-      viewport.find('h4').text(title);
+      viewport.find('h5').text(title);
       viewport.find('p.rss-desc').html(desc);
     };
 
@@ -69,8 +69,7 @@
         var feedTimer;
 
         // add click events to each rss title
-        rss_block.delegate('ul li', 'click', function (ev) {
-          ev.preventDefault();
+        rss_block.delegate('ul li', 'mouseenter', function (ev) {
           if ($(this).hasClass('current')) return;
 
           current_feed = $(this);

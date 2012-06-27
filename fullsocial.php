@@ -145,47 +145,8 @@ class WP_fullSocial_Widget extends WP_Widget {
   function schema () {
     return array (
 
-        // Twitter
-        'twitter'             => array(
-              'name'              => 'Twitter'
-            , 'id'                => 'twitter'
-            , 'description'       => 'Twitter social network'
-            , 'fields'              => array (
-                  'enabled'           => array (
-                      'name'          =>  'enabled'
-                    , 'type'          =>  'checkbox'
-                    , 'desc'          =>  'Enable twitter tab'
-                    , 'value'         =>  'on'
-                  )
-
-                , 'count'           => array (
-                      'name'          =>  'count'
-                    , 'type'          =>  'input'
-                    , 'desc'          =>  'Amount of twitts'
-                    , 'value'         =>  '10'
-                  )
-
-                , 'identifiers'     => array (
-                      'name'          =>  'identifiers'
-                    , 'type'          =>  'textarea'
-                    , 'desc'          =>  'Add the terms to show, can be an account (@account) or hashtag (#hashtag) separate by coma.'
-                    , 'value'         =>  '@summitbechtel, #jamboree'
-                  )
-
-                , 'updated'         => array (
-                      'name'          =>  'updated'
-                    , 'type'          =>  'hidden'
-                    , 'desc'          =>  'updating date'
-                    , 'value'         =>  '' 
-                  )
-                )
-
-            , 'front-tpl'             => 'fullsocial-twitter.php'
-            , 'back-tpl'              => 'fullsocial-twitter.php'
-          )
-
       // Facebook
-      , 'facebook'           => array(
+      'facebook'           => array(
           'name'                  => 'Facebook'
         , 'id'                    => 'facebook'
         , 'description'           => 'Facebook social network'
@@ -237,6 +198,49 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'front-tpl'             => 'fullsocial-facebook.php'
         , 'back-tpl'              => 'fullsocial-facebook.php'
       )
+
+        // Twitter
+       , 'twitter'             => array(
+              'name'              => 'Twitter'
+            , 'id'                => 'twitter'
+            , 'description'       => 'Twitter social network'
+            , 'fields'              => array (
+                  'enabled'           => array (
+                      'name'          =>  'enabled'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Enable twitter tab'
+                    , 'value'         =>  'on'
+                  )
+
+                , 'count'           => array (
+                      'name'          =>  'count'
+                    , 'type'          =>  'input'
+                    , 'desc'          =>  'Amount of twitts'
+                    , 'value'         =>  '10'
+                  )
+
+                , 'identifiers'     => array (
+                      'name'          =>  'identifiers'
+                    , 'type'          =>  'textarea'
+                    , 'desc'          =>  'Add the terms to show, can be an account (@account) or hashtag (#hashtag) separate by coma.'
+                    , 'value'         =>  '@summitbechtel, #jamboree'
+                  )
+
+                , 'updated'         => array (
+                      'name'          =>  'updated'
+                    , 'type'          =>  'hidden'
+                    , 'desc'          =>  'updating date'
+                    , 'value'         =>  '' 
+                  )
+                )
+
+            , 'front-tpl'             => 'fullsocial-twitter.php'
+            , 'back-tpl'              => 'fullsocial-twitter.php'
+          )
+
+
+
+
         // Instagram
       , 'instagram'           => array(
           'name'                  => 'Instagram'
@@ -318,6 +322,31 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'front-tpl'             => 'fullsocial-googleplus.php'
         , 'back-tpl'              => 'fullsocial-googleplus.php'
       )
+
+      // rss feed
+      , 'newsletter'       => array(
+          'name'                  => 'Newsletter'
+        , 'id'                    => 'newsletter'
+        , 'description'           => 'News letter suscription system'
+        , 'fields'                  => array (
+                  'enabled'         => array (
+                      'name'          =>  'enabled'
+                    , 'type'          =>  'checkbox'
+                    , 'desc'          =>  'Enable Newsletter tab'
+                    , 'value'         =>  'on'
+                  )
+
+                  , 'code'              => array (
+                      'name'            =>  'code'
+                    , 'type'            =>  'textarea'
+                    , 'desc'            =>  'Code to insert suscription'
+                    , 'value'           =>  ''
+                  )
+          
+            )
+        , 'front-tpl'             => 'fullsocial-newsletter.php'
+        , 'back-tpl'              => 'fullsocial-newsletter.php'
+      )
       // rss feed
       , 'feedrss'          => array(
           'name'                  => 'Feed rss'
@@ -346,31 +375,6 @@ class WP_fullSocial_Widget extends WP_Widget {
         , 'front-tpl'             => 'fullsocial-feedrss.php'
         , 'back-tpl'              => 'fullsocial-feedrss.php'
       )
-      // rss feed
-      , 'newsletter'       => array(
-          'name'                  => 'Newsletter'
-        , 'id'                    => 'newsletter'
-        , 'description'           => 'News letter suscription system'
-        , 'fields'                  => array (
-                  'enabled'         => array (
-                      'name'          =>  'enabled'
-                    , 'type'          =>  'checkbox'
-                    , 'desc'          =>  'Enable Newsletter tab'
-                    , 'value'         =>  'on'
-                  )
-
-                  , 'code'              => array (
-                      'name'            =>  'code'
-                    , 'type'            =>  'textarea'
-                    , 'desc'            =>  'Code to insert suscription'
-                    , 'value'           =>  ''
-                  )
-          
-            )
-        , 'front-tpl'             => 'fullsocial-newsletter.php'
-        , 'back-tpl'              => 'fullsocial-newsletter.php'
-      )
-
     );
   }
 
