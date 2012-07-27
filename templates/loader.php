@@ -1,8 +1,14 @@
 <div class="widget-container wp-fullsocial-widget" data-number="<?php echo $this->number; ?>">
+<?php if(get_option('fullsocial_jsfe')): ?>
   <h3>Connect</h3>
+
   <div class="wp-fullsocial-widget-tabs">
     <ul>
-    <?php $c = 0; ?>
+    <?php $c = 0;
+
+ ?>
+        
+
     <?php foreach($this->schema() as $k => $social) : ?>
     <?php $data = $this->getDataSocial($social, $instance, $this->number, false, true) ?>
       <?php if ($data['enabled']) : ?>
@@ -17,7 +23,7 @@
     <?php endforeach; ?>
     </ul>
   </div>
-
+<?php endif; ?>
   <div class="wp-fullsocial-blocks">
     <ul>
       <?php $c = 0; ?>

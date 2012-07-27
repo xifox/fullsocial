@@ -56,6 +56,8 @@ function _fs_getTwitts ($ids, $params) {
     $url = "http://search.twitter.com/search.json?q=%s&rpp=%s";
     $url = sprintf($url, $_ids, $params['count']);
 
+   // echo '<h2>url: '.$url.'</h2>';
+
     array_push($tws, json_decode(_fs_getData($url), true));
 
     _fs_saveLocalFile($fn, json_encode($tws));
@@ -79,13 +81,8 @@ function _fs_getInstagrams ($ids, $params) {
         $term = substr($term, 1);
         $url = "https://api.instagram.com/v1/tags/%s/media/recent?client_id=%s";
         $url = sprintf($url, urlencode($term), trim($params['client_id']));
-
-        array_push($int, json_decode(_fs_getData($url), true));
       }
-      /*
-       * Reescribir solicitando el accesstoken en el caso de que requiera user 
-       * feed
-       *
+ 
         else if($term = strstr($id, '@')) {
         $term = substr($term, 1);
         $iduser = "https://api.instagram.com/v1/users/search?q=%s&client_id=%s";
@@ -93,11 +90,12 @@ function _fs_getInstagrams ($ids, $params) {
         array_push($user, json_decode(_fs_getData($iduser), true)); 
         if( $user[0]['data'][0]['username'] == $term){
           $uid = $user[0]['data'][0]['id'];
-          $url = "https://api.instagram.com/v1/users/%s/media/recent?client_id=%s";
-          $url = sprintf($url, $uid , trim($params['client_id']));
+          $url = "https://api.instagram.com/v1/users/%s/media/recent/?access_token=11382119.12f66ed.739e352a437b48a9aa9a0e3c4d893853";
+          $url = sprintf($url, $uid );
           array_push($int, json_decode(_fs_getData($url), true));
         }
-      }*/
+      }
+      array_push($int, json_decode(_fs_getData($url), true));
     }
     _fs_saveLocalFile($fn, json_encode($int));
   }
